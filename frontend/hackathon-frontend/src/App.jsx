@@ -21,13 +21,13 @@ function App() {
     <>
       <div>
         <ToastContainer />
-        {/* <Home/> */}
+        <Home/>
         {/* <Login/> */}
-        <Register/>
+        {/* <Register/>
         <Routes>
         <Route path="/login" component={<Login/>} />
         <Route path="/register" component={<Register/>} />
-        </Routes>
+        </Routes> */}
       </div>
     </>
   )
