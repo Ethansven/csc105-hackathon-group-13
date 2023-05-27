@@ -9,7 +9,7 @@ import answer from "./endpoints/answer.js";
 import authMiddleware from "./endpoints/authMiddleware.js";
 import submit from "./endpoints/submit.js";
 import getFish from "./endpoints/getFish.js";
-import getUser from "./endpoints/getUser";
+import getUser from "./endpoints/getUser.js";
 import getFishs from "./endpoints/getFishs.js";
 const app = express();
 const port = 5000;
