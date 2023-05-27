@@ -12,23 +12,27 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import BG from "../components/video/OceanBG.mp4";
 import Logo from "../components/pic/FUNTIME.png";
 import Axios from "../../axiosInstance";
-
+import { useState } from "react";
+import {  toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const theme = createTheme();
 
 export default function SignInSide() {
-  //   const login= async()=>{
-  //     const user = await Axios.post("/login",{
-  //       username:
-  //     });
-  //   }
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
-  };
+  const [user,setuser]=useState();
+  const [pass,setpass]=useState();
+    const regis= async()=>{
+      event.preventDefault();
+      const user = await Axios.post("/regis",{
+        username:user,
+        password:pass
+      });
+      if (regis.data.success == true) {
+        console.log("hi");
+    }else {
+      toast.error(regis.data.message);
+    }
+  }
+  
 
   return (
     <ThemeProvider theme={theme}>
@@ -60,7 +64,7 @@ export default function SignInSide() {
             <Box
               component="form"
               noValidate
-              onSubmit={handleSubmit}
+              onSubmit={regis}
               sx={{
                 mt: 1,
                 width: "100%",
@@ -74,11 +78,10 @@ export default function SignInSide() {
                 margin="normal"
                 required
                 fullWidth
-                id="email"
+                value={user}
                 label="Username"
                 name="email"
-                autoComplete="email"
-                autoFocus
+                onChange={(e) => setuser(e.target.value)}
                 sx={{
                   borderRadius: 8,
                   backgroundColor: "rgba(255, 255, 255, 0.5)",
@@ -93,8 +96,8 @@ export default function SignInSide() {
                 name="password"
                 label="Password"
                 type="password"
-                id="password"
-                autoComplete="current-password"
+                value={pass}
+                onChange={(e) => setpass(e.target.value)}
                 sx={{
                   borderRadius: 8,
                   backgroundColor: "rgba(255, 255, 255, 0.5)",
