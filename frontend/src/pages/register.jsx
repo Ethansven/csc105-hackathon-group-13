@@ -9,30 +9,26 @@ import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import BG from "../components/video/OceanBG.mp4";
-import Logo from "../components/pic/FUNTIME.png";
-import Axios from "../../axiosInstance";
-import { useState } from "react";
-import {  toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import BG from "../assets/video/OceanBG.mp4";
+import Logo from "../assets/pic/FUNTIME.png";
+import Axios from "../axiosInstance";
+
 const theme = createTheme();
 
 export default function SignInSide() {
-  const [name,setname]=useState();
-const [pass,setpass]=useState();
-    const login= async()=>{
-      event.preventDefault();
-      const user = await Axios.post("/login",{
-        username:name,
-        password:pass,
-      });
-      if (user.data.success==true) {
-      console.log("hi");
-    }else{
-      toast.error(user.data.message);
-    }
-    }
-  
+  //   const login= async()=>{
+  //     const user = await Axios.post("/login",{
+  //       username:
+  //     });
+  //   }
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    console.log({
+      email: data.get("email"),
+      password: data.get("password"),
+    });
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -63,8 +59,8 @@ const [pass,setpass]=useState();
           >
             <Box
               component="form"
-              // noValidate
-              onSubmit={login}
+              noValidate
+              onSubmit={handleSubmit}
               sx={{
                 mt: 1,
                 width: "100%",
@@ -78,10 +74,11 @@ const [pass,setpass]=useState();
                 margin="normal"
                 required
                 fullWidth
+                id="email"
                 label="Username"
-                value={name}
-                type="text"
-                onChange={(e) => setname(e.target.value)}
+                name="email"
+                autoComplete="email"
+                autoFocus
                 sx={{
                   borderRadius: 8,
                   backgroundColor: "rgba(255, 255, 255, 0.5)",
@@ -92,11 +89,12 @@ const [pass,setpass]=useState();
               <TextField
                 margin="normal"
                 required
-                label="Password"
                 fullWidth
-                value={pass}
+                name="password"
+                label="Password"
                 type="password"
-                onChange={(e) => setpass(e.target.value)}
+                id="password"
+                autoComplete="current-password"
                 sx={{
                   borderRadius: 8,
                   backgroundColor: "rgba(255, 255, 255, 0.5)",
@@ -125,13 +123,8 @@ const [pass,setpass]=useState();
                   },
                 }}
               >
-                Sign In
+                Register
               </Button>
-              <Grid item sx={{marginLeft:2,}}>
-                  <Link href="#" variant="body2" style={{ color: "white" }}>
-                    {"Don't have an account? Sign Up"}
-                  </Link>
-                </Grid>
               <Grid container sx={{ marginTop: 3 }}>
                 <Grid>
                   <div

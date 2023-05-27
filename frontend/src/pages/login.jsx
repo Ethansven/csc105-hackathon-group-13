@@ -9,29 +9,29 @@ import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import BG from "../components/video/OceanBG.mp4";
-import Logo from "../components/pic/FUNTIME.png";
-import Axios from "../../axiosInstance";
+import BG from "../assets/video/OceanBG.mp4";
+import Logo from "../assets/pic/FUNTIME.png";
+import Axios from "../axiosInstance";
 import { useState } from "react";
 import {  toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const theme = createTheme();
 
 export default function SignInSide() {
-  const [user,setuser]=useState();
-  const [pass,setpass]=useState();
-    const regis= async()=>{
+  const [name,setname]=useState();
+const [pass,setpass]=useState();
+    const login= async()=>{
       event.preventDefault();
-      const user = await Axios.post("/regis",{
-        username:user,
-        password:pass
+      const user = await Axios.post("/login",{
+        username:name,
+        password:pass,
       });
-      if (regis.data.success == true) {
-        console.log("hi");
-    }else {
-      toast.error(regis.data.message);
+      if (user.data.success==true) {
+      console.log("hi");
+    }else{
+      toast.error(user.data.message);
     }
-  }
+    }
   
 
   return (
@@ -63,8 +63,8 @@ export default function SignInSide() {
           >
             <Box
               component="form"
-              noValidate
-              onSubmit={regis}
+              // noValidate
+              onSubmit={login}
               sx={{
                 mt: 1,
                 width: "100%",
@@ -78,10 +78,10 @@ export default function SignInSide() {
                 margin="normal"
                 required
                 fullWidth
-                value={user}
                 label="Username"
-                name="email"
-                onChange={(e) => setuser(e.target.value)}
+                value={name}
+                type="text"
+                onChange={(e) => setname(e.target.value)}
                 sx={{
                   borderRadius: 8,
                   backgroundColor: "rgba(255, 255, 255, 0.5)",
@@ -92,11 +92,10 @@ export default function SignInSide() {
               <TextField
                 margin="normal"
                 required
-                fullWidth
-                name="password"
                 label="Password"
-                type="password"
+                fullWidth
                 value={pass}
+                type="password"
                 onChange={(e) => setpass(e.target.value)}
                 sx={{
                   borderRadius: 8,
@@ -126,8 +125,13 @@ export default function SignInSide() {
                   },
                 }}
               >
-                Register
+                Sign In
               </Button>
+              <Grid item sx={{marginLeft:2,}}>
+                  <Link href="#" variant="body2" style={{ color: "white" }}>
+                    {"Don't have an account? Sign Up"}
+                  </Link>
+                </Grid>
               <Grid container sx={{ marginTop: 3 }}>
                 <Grid>
                   <div
