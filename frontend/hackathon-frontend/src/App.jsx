@@ -14,18 +14,20 @@ import "react-toastify/dist/ReactToastify.css";
 import Axios from "./axiosInstance";
 import Login from './assets/page/login'
 import Register from '../src/assets/page/register'
+import Home from '../src/assets/page/home'
 
 function App() {
   return (
     <>
       <div>
         <ToastContainer />
-        <Login/>
-        {/* <Register/> */}
-        {/* <Routes>
-        <Route path="/login" component={Login} />
-        <Route path="/register" component={Register} />
-        </Routes> */}
+        {/* <Home/> */}
+        {/* <Login/> */}
+        <Register/>
+        <Routes>
+        <Route path="/login" component={<Login/>} />
+        <Route path="/register" component={<Register/>} />
+        </Routes>
       </div>
     </>
   )
