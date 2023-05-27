@@ -22,8 +22,8 @@ export default async (req, res) => {
   }
 
   var sql = global.connection.format(
-    "INSERT INTO user (username, hashed_password) VALUES (?, ?)",
-    [username, hash1]
+    "INSERT INTO user (username, hashed_password,score) VALUES (?, ?,?)",
+    [username, hash1,0]
   );
   global.connection.query(sql, (err, rows) => {
     if (err) {
