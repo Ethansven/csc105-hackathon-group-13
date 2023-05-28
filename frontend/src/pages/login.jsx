@@ -15,23 +15,29 @@ import Axios from "../axiosInstance";
 import { useState } from "react";
 import {  toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
+import { AxiosError } from "axios";
 const theme = createTheme();
 
 export default function SignInSide() {
+  const navigate = useNavigate();
   const [name,setname]=useState();
 const [pass,setpass]=useState();
     const login= async()=>{
-      event.preventDefault();
+      try {
+        event.preventDefault();
       const user = await Axios.post("/login",{
         username:name,
         password:pass,
       });
-      if (user.data.success==true) {
-      console.log("hi");
-    }else{
-      toast.error(user.data.message);
+      navigate("/")
+      } catch (error) {
+        if (error instanceof AxiosError) {
+          toast.error(error.response.data.message);
+        }
+      }
     }
-    }
+    
   
 
   return (
@@ -128,7 +134,7 @@ const [pass,setpass]=useState();
                 Sign In
               </Button>
               <Grid item sx={{marginLeft:2,}}>
-                  <Link href="#" variant="body2" style={{ color: "white" }}>
+                  <Link href="/regis" variant="body2" style={{ color: "white" }}>
                     {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>

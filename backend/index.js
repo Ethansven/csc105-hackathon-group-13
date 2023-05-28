@@ -11,6 +11,7 @@ import submit from "./endpoints/submit.js";
 import getFish from "./endpoints/getFish.js";
 import getUser from "./endpoints/getUser.js";
 import getFishs from "./endpoints/getFishs.js";
+import leaderboad from "./endpoints/leaderboad.js";
 const app = express();
 const port = 5000;
 app.use(cors({ origin: ["http://localhost:5173"], credentials: true }));
@@ -35,11 +36,11 @@ app.post("/login", login);
 app.post("/regis", regis);
 app.get("/logout", logout);
 app.get("/fish", getFishs);
-app.get("/fish/:id",authMiddleware ,getFish);
-app.get("/getUser", authMiddleware,getUser);
-app.post("/answer/:id",authMiddleware, answer);
-app.get("/submit",authMiddleware,submit);
-
+app.get("/fish/:id", authMiddleware, getFish);
+app.get("/getUser", authMiddleware, getUser);
+app.post("/answer/:id", authMiddleware, answer);
+app.post("/submit", authMiddleware, submit);
+app.get("/leaderboard",leaderboad);
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });

@@ -15,17 +15,19 @@ import Axios from "./axiosInstance";
 import Login from "./pages/login";
 import Register from "./pages/register";
 import Home from "./pages/home";
+import Result from "./pages/result";
+import axios from "axios";
 function App() {
+  
   return (
     <>
       <div>
         <ToastContainer />
-        {/* <Login/> */}
-        {/* <Register/> */}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/regis" element={<Register />} />
+          <Route path="/result" element={<Result/>}/>
         </Routes>
       </div>
     </>

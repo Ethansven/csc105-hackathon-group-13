@@ -8,22 +8,30 @@ import Grid from "@mui/material/Grid";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import BG from "../assets/video/OceanBG.mp4";
 import Logo from "../assets/pic/FUNTIME.png";
-
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Axios from "../axiosInstance";
 const theme = createTheme();
 
 export default function SignInSide() {
-  //   const login= async()=>{
-  //     const user = await Axios.post("/login",{
-  //       username:
-  //     });
-  //   }
-  const handleSubmit = (event) => {
+  const [user, setUser] = useState();
+  const [pass, setPass] = useState();
+  const navigate = useNavigate();
+  const regis = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
+    console.log(regis);
+
+    const res = await Axios.post("/regis", {
+      username: user,
+      password: pass,
     });
+    if (res.data.success == true) {
+      navigate("/login");
+    } else {
+      toast.error(res.data.message);
+    }
   };
 
   return (
@@ -48,7 +56,7 @@ export default function SignInSide() {
               alignItems: "center",
               padding: "30px",
               borderRadius: "20px",
-              color:"white",
+              color: "white",
               backgroundColor: "rgba(255, 255, 255, 0.5)",
               boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.2)",
             }}
@@ -56,7 +64,7 @@ export default function SignInSide() {
             <Box
               component="form"
               noValidate
-              onSubmit={handleSubmit}
+              onSubmit={regis}
               sx={{
                 mt: 1,
                 width: "100%",
@@ -65,16 +73,18 @@ export default function SignInSide() {
                 alignItems: "center",
               }}
             >
-                <img style={{width:"50%",padding:"5px"}} src={Logo} alt="logo" />
+              <img
+                style={{ width: "50%", padding: "5px" }}
+                src={Logo}
+                alt="logo"
+              />
               <TextField
                 margin="normal"
                 required
                 fullWidth
-                id="email"
+                value={user}
                 label="Username"
-                name="email"
-                autoComplete="email"
-                autoFocus
+                onChange={(event) => setUser(event.target.value)}
                 sx={{
                   borderRadius: 8,
                   backgroundColor: "rgba(255, 255, 255, 0.5)",
@@ -86,11 +96,10 @@ export default function SignInSide() {
                 margin="normal"
                 required
                 fullWidth
-                name="password"
+                value={pass}
                 label="Password"
                 type="password"
-                id="password"
-                autoComplete="current-password"
+                onChange={(event) => setPass(event.target.value)}
                 sx={{
                   borderRadius: 8,
                   backgroundColor: "rgba(255, 255, 255, 0.5)",
@@ -100,6 +109,7 @@ export default function SignInSide() {
                 }}
               />
               <Button
+                // onClick={regis}
                 type="submit"
                 variant="contained"
                 fullWidth
