@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 import Axios from "../axiosInstance";
 const pages = [];
 
-function Navbar() {
+function Navbar({ name }) {
   const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -40,11 +40,7 @@ function Navbar() {
   };
 
   return (
-    <Container
-      maxWidth="xl"
-      sx={{ width: "100%", alignContent: "center" }}
-      // sx={{ width: "140%", alignContent: "center" }}
-    >
+    <Container maxWidth="xl" sx={{ width: "100%", alignContent: "center" }}>
       <Toolbar disableGutters>
         <img style={{ width: "15%" }} src={Logo} alt="logo" />
         <Menu
@@ -83,19 +79,19 @@ function Navbar() {
             </Button>
           ))}
         </Box>
-
+        <h3 style={{marginRight:"10px",marginTop:"30px",marginBottom:"0 px"}}>{name}</h3>
         <Box sx={{ flexGrow: 0 }}>
           <Tooltip title="Open settings">
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
               <Avatar
                 sx={{ width: "50px", height: "50px", marginTop: "20px" }}
-                alt="Remy Sharp"
+                alt={name}
                 src="/static/images/avatar/2.jpg"
               />
             </IconButton>
           </Tooltip>
           <Menu
-            sx={{ mt: "70px" }}
+            sx={{ mt: "70px", width: "600px" }}
             id="menu-appbar"
             anchorEl={anchorElUser}
             anchorOrigin={{
@@ -111,7 +107,9 @@ function Navbar() {
             onClose={handleCloseUserMenu}
           >
             <MenuItem onClick={logout}>
-              <Typography textAlign="center">logout</Typography>
+              <Typography sx={{ width: "60px" }} textAlign="center">
+                logout 
+              </Typography>
             </MenuItem>
           </Menu>
         </Box>

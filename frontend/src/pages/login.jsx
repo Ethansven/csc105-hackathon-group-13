@@ -26,7 +26,7 @@ const [pass,setpass]=useState();
     const login= async()=>{
       try {
         event.preventDefault();
-      const user = await Axios.post("/login",{
+      await Axios.post("/login",{
         username:name,
         password:pass,
       });

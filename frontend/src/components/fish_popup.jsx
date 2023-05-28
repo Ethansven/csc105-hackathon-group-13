@@ -27,7 +27,7 @@ const Popup_Card = ({ closePopup, id }) => {
   }, [id]);
   const save = async (event) => {
     event.preventDefault();
-    const saveAnswer = await Axios.post(`/answer/${id}`, {
+    await Axios.post(`/answer/${id}`, {
       answer: answer,
     });
     closePopup();

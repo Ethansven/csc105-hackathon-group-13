@@ -16,10 +16,13 @@ import { AxiosError } from "axios";
 const theme = createTheme();
 
 export default function Home() {
+  const [user, setuser] = useState();
   const navigate = useNavigate();
   const auth = async () => {
     try {
       const islog = await Axios.get("/getUser");
+      setuser(islog.data);
+      
     } catch (error) {
       if (error instanceof AxiosError) {
         navigate("/login");
@@ -36,8 +39,8 @@ export default function Home() {
     });
   }, []);
   const submit = async () => {
-    const go = await Axios.post("/submit");
-    navigate("/result")
+    await Axios.post("/submit");
+    navigate("/result");
   };
   return (
     <ThemeProvider theme={theme}>
@@ -67,37 +70,41 @@ export default function Home() {
           // alignItems="center"
           justifyContent="center"
         >
-          
-            <Grid>
-              <Navbar />
-              <div style={{ display: "flex", flexDirection: "row",marginTop:"30px" }}>
-                {fish.map((f) => (
-                  <Card f={f} setCurrentFishId={setCurrentFishId} />
-                ))}
-              </div>
-            </Grid>
-            {currentFishId && (
-              <Box sx={{ width: "30%", marginLeft: "-100px" }}>
-                <Fish_popup
-                  id={currentFishId}
-                  closePopup={() => setCurrentFishId()}
-                />
-              </Box>
-            )}
-            <Button
-              sx={{
-                position: "absolute",
-                right: "50px",
-                bottom: "40px",
-                borderRadius: "10px",
+          <Grid>
+            <Navbar  name={user?.username}/>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                marginTop: "30px",
               }}
-              variant="contained"
-              color="success"
-              onClick={submit}
             >
-              Submit
-            </Button>
-         
+              {fish.map((f) => (
+                <Card f={f} setCurrentFishId={setCurrentFishId} />
+              ))}
+            </div>
+          </Grid>
+          {currentFishId && (
+            <Box sx={{ width: "30%", marginLeft: "-100px" }}>
+              <Fish_popup
+                id={currentFishId}
+                closePopup={() => setCurrentFishId()}
+              />
+            </Box>
+          )}
+          <Button
+            sx={{
+              position: "absolute",
+              right: "50px",
+              bottom: "40px",
+              borderRadius: "10px",
+            }}
+            variant="contained"
+            color="success"
+            onClick={submit}
+          >
+            Submit
+          </Button>
         </Grid>
       </div>
     </ThemeProvider>

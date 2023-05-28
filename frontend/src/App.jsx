@@ -17,6 +17,7 @@ import Register from "./pages/register";
 import Home from "./pages/home";
 import Result from "./pages/result";
 import axios from "axios";
+import Error from "./pages/404";
 function App() {
   
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/regis" element={<Register />} />
           <Route path="/result" element={<Result/>}/>
+          <Route path="*" element={<Error/>}/>
         </Routes>
       </div>
     </>
